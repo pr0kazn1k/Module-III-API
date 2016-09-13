@@ -1,0 +1,28 @@
+{
+  "name": "valentineus/Module-III-API",
+  "version": "1.0.0",
+  "type": "library",
+  "description": "Small module to work with artificial intelligence of iii.ru",
+  "license": "MIT",
+  "homepage": "https://github.com/valentineus/Module-III-API",
+  "authors": [
+    {
+      "name": "Paul Belinsky",
+      "email": "vskyd1@gmail.com",
+      "homepage": "https://blog.vskyd1.ru/",
+      "role": "Developer"
+    },
+    {
+      "name": "Valentin Popov",
+      "email": "valentineus@gmail.com",
+      "homepage": "https://github.com/valentineus",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "valentineus@gmail.com",
+  },
+  "require": {
+    "php": ">=5.6.21"
+  }
+}
