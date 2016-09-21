@@ -19,7 +19,7 @@
   <body>
     <?php // Connect all of the dependencies
       include("../src/bot.php"); // Class for working with AI
-      include("components/class-application.php"); // Class to work with application logic
+      include("components/functions.php"); // Class to work with application logic
       include("components/navbar.php"); // Connect the navigation bar
       include("components/settings.php"); // Connecting a modal window with the settings
     ?>

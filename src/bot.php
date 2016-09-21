@@ -5,15 +5,16 @@
 		private $salt = 'some very-very long string without any non-latin characters due to different string representations inside of variable programming languages';
 
 		/**
-		* @param $key - Ключ из урла после создания инфа
+		* @param $key - The session key of the row address.
 		*/
 		public function __construct($key) {
 			$this->key = $key;
 		}
 
 		/**
-		* @param null $session - Идентификатор сессии существующей, если нет то создается новая
-		* @return string Идентификатор текущей сессии
+		* The function of creating the session.
+		* @param $session - Session ID.
+		* @return string - The ID of the current session.
 		*/
 		public function session($session = null) {
 			if ($session === null) {
@@ -22,14 +23,14 @@
 			} else {
 				$this->session = $session;
 			}
-
+			// We issue results
 			return $this->session;
 		}
 
 		/**
-		* ОТправить сообщение боту
-		* @param string $message Сообщение
-		* @return string Ответ
+		* Function send a message to the bot.
+		* @param $message - Message text.
+		* @return string - Returns a response from a bot.
 		*/
 		public function say($message) {
 			$request = '["'.$this->session.'","'.$message.'"]';
@@ -42,41 +43,39 @@
 			));
 			$response = curl_exec($myCurl);
 			curl_close($myCurl);
-
+			// We issue results
 			return $this->decode($response)->result->text->tts;
 		}
 
 		/**
-		* Кодирование сообщения
-		* @param $message
-		* @return string
+		* Encode message before sending it.
+		* @param $message - The response from the bot.
+		* @return string - A coded message.
 		*/
 		private function encode($message) {
 			$message = base64_encode($message);
 			$ml = strlen($message);
 			$kl = strlen($this->salt);
-			$encoded = "";
 			for ($i = 0; $i < $ml; $i++) {
 				$encoded = $encoded . ($message[$i] ^ $this->salt[$i % $kl]);
 			}
-
+			// We issue results
 			return base64_encode($encoded);
 		}
 
 		/**
-		* Декодирование сообщения
-		* @param $message
+		* The function of decoding the received message.
+		* @param $message - The response from the bot.
 		* @return mixed|null
 		*/
 		private function decode($message) {
 			$msg = base64_decode($message);
 			$ml = strlen($msg);
 			$kl = strlen($this->salt);
-			$decoded = "";
 			for ($i = 0; $i < $ml; $i++) {
 				$decoded.= ($msg[$i] ^ $this->salt[$i % $kl]);
 			}
-
+			// We issue results
 			return json_decode(base64_decode($decoded));
 		}
 	}

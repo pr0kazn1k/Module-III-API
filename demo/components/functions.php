@@ -2,6 +2,7 @@
 /**
 * The function returns the current ID.
 * Returns zero if no ID is stored.
+* @return integer - ID session.
 */
 function GetID() {
   // Search current ID...
@@ -21,6 +22,7 @@ function GetID() {
 * init or returns zero on failure.
 * @param $token - The values of the token.
 * @param $bot - Initialized bot.
+* @return string - ID bot session.
 */
 function GetSession($token, $bot) {
   // Search the old session
@@ -44,6 +46,7 @@ function GetSession($token, $bot) {
 * the specified or the next. If any missing ID
 * returns the one.
 * @param $id - Current ID.
+* @return integer - Next ID.
 */
 function SetID($id) {
   // Process the specified ID...
