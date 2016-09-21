@@ -1,4 +1,6 @@
 # Класс для работы с ботом «А-я-яй»
+> [Demo] (https://valentineus.link/iii/)
+
 ## Инициализация бота:
 ```
 define('BOT_TOKEN', $token);
