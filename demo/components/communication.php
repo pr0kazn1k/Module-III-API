@@ -3,13 +3,12 @@
   <div class="row">
     <!-- Text field -->
     <div class="col-md-8">
-      <textarea class="form-control" rows="3" name="textarea"></textarea>
+      <input class="form-control" type="text" name="textarea" value="">
     </div>
     <!-- Control buttons -->
     <div class="col-md-4">
       <button type="submit" class="btn btn-default">Submit</button>
       <button type="button" class="btn btn-success" data-toggle="modal" data-target="#SettingsModal">Settings</button>
-      <button type="button" class="btn btn-danger">Reset</button>
     </div>
   </div><!-- row -->
 </form>

@@ -2,7 +2,7 @@
 <footer class="footer">
   <div class="container">
     <p class="text-muted">
-      <a href="mailto:valentineus@gmail.com">valentineus@gmail.com</a>
+      <a href="mailto:dev@valentineus.link">dev@valentineus.link</a>
     </p>
   </div>
 </footer>
