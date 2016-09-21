@@ -1,8 +1,3 @@
-<?php
-ini_set("display_errors","1");
-ini_set("display_startup_errors","1");
-ini_set('error_reporting', E_ALL);
-?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,6 +15,7 @@ ini_set('error_reporting', E_ALL);
     <!-- Title -->
     <title>Testing conversational bot</title>
   </head>
+
   <body>
     <?php // Connect all of the dependencies
       include("../src/bot.php"); // Class for working with AI
@@ -27,16 +23,27 @@ ini_set('error_reporting', E_ALL);
       include("components/navbar.php"); // Connect the navigation bar
       include("components/settings.php"); // Connecting a modal window with the settings
     ?>
+
     <!-- Begin page content -->
     <div class="container">
       <div class="page-header">
         <h1>Communication Panel</h1>
       </div>
+
       <?php
+        // Treat the reset button
+        if (isset($_POST['reset'])) {
+          ClearingCache("cookies"); // We clear all cookies
+          ClearingCache("post"); // Removes all requests that were not processed
+          header("Location: " . $_SERVER["REQUEST_URI"]); // Reloading the page
+        }
+
         // Checking the token initialization
         if (isset($_POST['BOT_TOKEN'])) {
           $token = htmlspecialchars($_POST['BOT_TOKEN']);
-          NewToken($token);
+          ClearingCache("cookies"); // We clear all cookies
+          SetCookie("BOT_TOKEN", $token); // Save a new cookie
+          header("Location: " . $_SERVER["REQUEST_URI"]); // Reloading the page
         // ...Finding saved token
         } elseif (isset($_COOKIE['BOT_TOKEN'])) {
           $token = $_COOKIE['BOT_TOKEN'];
@@ -47,7 +54,8 @@ ini_set('error_reporting', E_ALL);
           // Initialize the robot system
           define('BOT_TOKEN', $token);
           $bot = new Bot(BOT_TOKEN);
-          $session = GetSession($token, $bot); // Initialize the session
+          // Initialize the session
+          $session = GetSession($token, $bot);
           if (empty($session)) { // No session? Error! ?>
             <!-- Error Notification -->
             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -65,16 +73,15 @@ ini_set('error_reporting', E_ALL);
 
         // Processes the message
         if (isset($_POST['textarea'])) {
-          $currentid = GetID(); // Get the current ID
           $currenttext = htmlspecialchars($_POST['textarea']); // Transform text
-          SavingStories($currentid, $currenttext, 'user'); // Keeping your message
-          $currentid = SetID($currentid); // Get next ID
-          SavingStories($currentid, $bot->say($currenttext), 'bot'); // Save bot response
-          header("Location: ".$_SERVER["REQUEST_URI"]); // Reloading the page
+          SavingStories(GetID(), $currenttext, 'user'); // Keeping your message
+          $currentid = SetID(GetID()); // Get next ID
+          SavingStories(SetID($currentid), $bot->say($currenttext), 'bot'); // Save bot response
+          header("Location: " . $_SERVER["REQUEST_URI"]); // Reloading the page
         }
 
         // Connecting the system interface
-        include("components/communication.php"); // Settings panel
+        include("components/on-board-panel.php"); // Settings panel
         include("components/results.php"); // Output messages
       ?>
     </div>

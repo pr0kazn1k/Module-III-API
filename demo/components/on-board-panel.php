@@ -9,6 +9,7 @@
     <div class="col-md-4">
       <button type="submit" class="btn btn-default">Submit</button>
       <button type="button" class="btn btn-success" data-toggle="modal" data-target="#SettingsModal">Settings</button>
+      <button type="submit" class="btn btn-danger" name="reset">Reset</button>
     </div>
   </div><!-- row -->
 </form>

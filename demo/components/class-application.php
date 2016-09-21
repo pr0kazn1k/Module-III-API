@@ -1,12 +1,18 @@
 <?php
 /**
-* Function of saving the token in a cookie.
-* When you receive the new value clears all stored cookies.
-* @param $token - The values of the token.
+* The function returns the current ID.
+* Returns zero if no ID is stored.
 */
-function NewToken($token) {
-  unset($_COOKIE); // Removes all
-  SetCookie("BOT_TOKEN", $token); // Save a new cookie
+function GetID() {
+  // Search current ID...
+  if (isset($_COOKIE['CURRENT_ID'])) {
+    $id = (int)$_COOKIE['CURRENT_ID'] + 1;
+  // ...or returns zero
+  } else {
+    $id = 0;
+  }
+  // We issue results
+  return $id;
 }
 
 /**
@@ -34,22 +40,6 @@ function GetSession($token, $bot) {
 }
 
 /**
-* The function returns the current ID.
-* Returns zero if no ID is stored.
-*/
-function GetID() {
-  // Search current ID...
-  if (isset($_COOKIE['CURRENT_ID'])) {
-    $id = (int)$_COOKIE['CURRENT_ID'] + 1;
-  // ...or returns zero
-  } else {
-    $id = 0;
-  }
-  // We issue results
-  return $id;
-}
-
-/**
 * The function overrides the current ID to
 * the specified or the next. If any missing ID
 * returns the one.
@@ -67,8 +57,29 @@ function SetID($id) {
     $id = 1;
   }
   SetCookie('CURRENT_ID', $id, time()+300); // Save the result
-  // We issue results
-  return $id;
+  return $id; // We issue results
+}
+
+/**
+* Cleaning function of the parameter that is passed to it.
+* @param $type - Type cleansed.
+*/
+function ClearingCache($type) {
+  switch ($type) {
+    // Clear the cookies
+    case 'cookies':
+      foreach ($_COOKIE as $key => $value) {
+        SetCookie($key, $value, time()-1000);
+      }
+      break;
+    // Clear the POST
+    case 'post':
+      $_POST = array();
+      break;
+    // ...
+    default:
+      break;
+  }
 }
 
 /**

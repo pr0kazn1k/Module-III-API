@@ -1,8 +1,10 @@
 <!-- Start navigation bar -->
 <nav class="navbar navbar-default navbar-fixed-top">
+  <!-- Loaded banner GitHub -->
   <a href="https://github.com/valentineus/Module-III-API">
     <img class="github-fork">
   </a>
+  <!-- Filling panel -->
   <div class="container">
     <div class="collapse navbar-collapse">
       <!-- The right side of the navigation bar -->
